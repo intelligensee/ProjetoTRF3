@@ -1,0 +1,19 @@
+.ponteiro{color: darkgreen; font-weight: bolder; font-size: 1.4em}
+.exercito{font-weight: bold; font-size: 2em}
+.exercito-norte{color: darkred}
+.exercito-sul{color: darkblue}
+.tb-numeros{width: 100%; text-align: center; padding: 2%}
+.tb-numeros td{width: 8.33%}
+.btn-numeros input{width: 70%; height: 40px; font-size: 1.6em; color: white; background-color: gray; margin-right: 2px}
+.tb-oper{width: 100%; text-align: center}
+.btn-oper{width: 40px; height: 40px; color: white; margin-right: 4px}
+.btn-oper-norte{background-color: darkred}
+.btn-oper-sul{background-color: darkblue}
+.operacoes{margin: 2% 0 2% 0}
+.operacoes table{width: 100%; padding: 2% 0 2% 0}
+.operacoes td{text-align: center; width: 16.66%}
+.oper-text{width: 90px; font-size: 1.2em; font-weight: bold; color: green; 
+           border-radius: 5px; border: 1px solid aquamarine}
+.dado{width: 30px; height: 30px; font-size: 1.2em; color: whitesmoke;
+      background-color: black}
+.btn-acao{height: 40px; font-size: 1.2em}
