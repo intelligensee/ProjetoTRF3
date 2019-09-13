@@ -13,6 +13,7 @@ require_once (__ROOT__ . '/daos/ExercicioDAO.php');
 require_once (__ROOT__ . '/daos/JogoDAO.php');
 require_once (__ROOT__ . '/daos/CronogramaDAO.php');
 require_once (__ROOT__ . '/daos/TarefaDAO.php');
+require_once (__ROOT__ . '/daos/CargoDAO.php');
 
 class Fachada implements IFachada {
 
@@ -71,7 +72,7 @@ class Fachada implements IFachada {
 
     private function executarRegras($comando, $objeto) {
         $verif = null;
-        error_reporting(0); //não mostra erros para o usuário
+//        error_reporting(0); //não mostra erros para o usuário
         try {//Verifica a existência de regras de negócio para o objeto recebido
             if (!$m = $this->mapaClasses[get_class($objeto)]) {
                 throw new Exception; //lança exceção se não houver
@@ -102,6 +103,7 @@ class Fachada implements IFachada {
         $mapaDAO[get_class(new Jogo())] = new JogoDAO();
         $mapaDAO[get_class(new Cronograma())] = new CronogramaDAO();
         $mapaDAO[get_class(new Tarefa())] = new TarefaDAO();
+        $mapaDAO[get_class(new Cargo())] = new CargoDAO();
 
         return $mapaDAO[get_class($object)];
     }
