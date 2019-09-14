@@ -40,6 +40,9 @@
                 <button class="btn-cronograma" onclick="window.location = 'cronograma.php'">Cronograma</button>
                 <button class="btn-estudo" onclick="window.location = 'estudar.php'">Estudar</button>
             </div>
+            <div class="cargos">
+                <span id="spnCargos"></span>
+            </div>
             <div class="disciplinas">
                 <?php
                 foreach ($d[1] as $obj) {

@@ -3,6 +3,7 @@
 require_once (__ROOT__ . '/interfaces/IDAO.php');
 require_once (__ROOT__ . '/util/ConnectionFactory.php');
 require_once (__ROOT__ . '/dominio/Usuario.php');
+require_once (__ROOT__ . '/dominio/Cargo.php');
 
 class UsuarioDAO implements IDAO {
 
@@ -45,10 +46,25 @@ class UsuarioDAO implements IDAO {
             $o->setId($obj["idUsuario"]);
             $o->setNome($obj["nomeUsuario"]);
             $idC = $obj["idCronograma"];
-            if ($idC === null) {
+            if ($idC === null) {//não possui cronograma
                 $o->setIdCronograma(0);
-            } else {
+                $o->setCargos([]);
+            } else {//possui cronograma
                 $o->setIdCronograma($idC);
+                $sqlCg = 'SELECT cargo.idCargo, nomeCargo';
+                $sqlCg .= ' FROM usuario_cargo JOIN cargo';
+                $sqlCg .= ' ON usuario_cargo.idCargo=cargo.idCargo';
+                $sqlCg .= ' WHERE usuario_cargo.idUsuario = ' . $o->getId();
+                $stmtCg = $this->conn->prepare($sqlCg);
+                $stmtCg->execute();
+                $rsCg = $stmtCg->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($rsCg as $cg){//extrai os cargos do usuário
+                    $cargo = new Cargo();
+                    $cargo->setId($cg["idCargo"]);
+                    $cargo->setNome($cg["nomeCargo"]);
+                    $cargos[] = $cargo;
+                }
+                $o->setCargos($cargos);
             }
             $list[] = $o;
         }

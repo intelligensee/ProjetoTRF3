@@ -27,6 +27,8 @@ if (empty($q)) {//sair
         $_SESSION['usuario'] = null;
         $_SESSION['cronograma'] = null;
         $_SESSION['tarefa'] = null;
+        $_SESSION['dias'] = null;
+        $_SESSION['QtdDia'] = null;
         $logado = 'E';//erro de usuário e/ou senha
     }
 }

@@ -5,6 +5,7 @@ require_once (__ROOT__ . '/strategies/VerificaNome.php');
 require_once (__ROOT__ . '/strategies/VerificaSenha.php');
 require_once (__ROOT__ . '/strategies/MontaCronograma.php');
 require_once (__ROOT__ . '/util/Auxiliar.php');
+require_once (__ROOT__ . '/dominio/Cargo.php');
 require_once (__ROOT__ . '/daos/UsuarioDAO.php');
 require_once (__ROOT__ . '/daos/DisciplinaDAO.php');
 require_once (__ROOT__ . '/daos/AssuntoDAO.php');
@@ -72,7 +73,7 @@ class Fachada implements IFachada {
 
     private function executarRegras($comando, $objeto) {
         $verif = null;
-//        error_reporting(0); //não mostra erros para o usuário
+        error_reporting(0); //não mostra erros para o usuário
         try {//Verifica a existência de regras de negócio para o objeto recebido
             if (!$m = $this->mapaClasses[get_class($objeto)]) {
                 throw new Exception; //lança exceção se não houver

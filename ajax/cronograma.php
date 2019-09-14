@@ -32,8 +32,9 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
     //Inicialização das variáveis
     $idCronograma = 0;
     $resposta[0] = 'Olá visitante!';
-    $salvo = false;
-
+    $salvo = false; //sem cronograma
+    $dias = [true, true, true, true, true, true, true]; //dias da semana padrão
+    $qtd = 1;
     //Verificação de usuário logado
     if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//Se estiver logado
         $u = unserialize($_SESSION['usuario']); //recupera o usuário
@@ -63,6 +64,8 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
         $tarefas = $r[0]; //nova lista de tarefas
         $crono->setTarefas($tarefas);
         $_SESSION['cronograma'] = serialize($crono);
+        $_SESSION['dias'] = $dias; //dias da semana
+        $_SESSION['QtdDia'] = $qtd;//assuntos por dia
     }
 
     $ret = montar($tarefas, $salvo);
@@ -74,22 +77,39 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
         $resposta[0] .= ' Você não possui cronograma salvo.';
         $resposta[1] = date('Y-m-d', strtotime($tarefas[0]->getData()));
         $resposta[4] = false;
+        $dias = $_SESSION['dias'];
+        $qtd = $_SESSION['QtdDia'];
     } else {//com cronograma salvo
         $resposta[0] .= ' Esse é o cronograma que você salvou.';
         $resposta[4] = true;
     }
-    /* resposta: 0 = boas vindas; 1 = data de início; 2 = tabela
-     *          3 = data final; 4 = visibilidades; 5 = progresso
-     */
-    echo $resposta[0] . '?' . $resposta[1] . '?' . $resposta[2] . '?' . $resposta[3] . '?' . $resposta[4] . '?' . $resposta[5];
+    $retorno = $resposta[0] . '?'; //boas vindas
+    $retorno .= $resposta[1] . '?'; //data inicial
+    $retorno .= $resposta[2] . '?'; //tabela de assuntos
+    $retorno .= $resposta[3] . '?'; //data final
+    $retorno .= $resposta[4] . '?'; //visibilidades
+    $retorno .= $resposta[5] . '?'; //progresso
+    $retorno .= $qtd;//assuntos por dia
+    foreach ($dias as $d){//dias da semana escolhidos
+        $retorno .= '?' . $d;
+    }
+
+    echo $retorno;
 }
 
 function alterar($dados) {//Altera os parâmetros de montagem do cronograma
     $e = explode('§', $dados); //separa os dados
     $data = new DateTime($e[0]); //data inicial
     $qtd = $e[1]; //quantidade por dia
+    $_SESSION['QtdDia'] = $qtd;
     for ($i = 2; $i < count($e); $i++) {//frequência (domingo à sábado)
         $dias[] = $e[$i];
+        if($e[$i] === 'true'){//Obs.: o que vem não é booleano, é texto
+            $d[] = true;
+        }else{
+            $d[] = false;
+        }
+        $_SESSION['dias'] = $d;//dias da semana escolhidos
     }
 
     //extração do cronograma da session

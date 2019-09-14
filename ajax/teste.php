@@ -7,12 +7,19 @@ session_start();
 require_once '../controllers/Controller.php';
 $c = new Controller();
 
-require_once '../util/Auxiliar.php';
+require_once '../dominio/Usuario.php';
+//require_once '../dominio/Cargo.php';
 
-$r = $c->processar("PESQUISAR", new Auxiliar());
+$u1 = new Usuario();
+$u1->setId(3);
 
-foreach ($r[0] as $o){
-    echo $o->getNomeDisciplina();
-    echo '</br>';
-}
+$r = $c->processar("PESQUISAR", $u1);
+$u = $r[1][0];
+
+echo "<pre>";
+print_r($u);
+
+$cg = $u->getCargos();
+print_r($cg);
+
 
