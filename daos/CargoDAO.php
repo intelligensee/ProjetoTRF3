@@ -27,6 +27,7 @@ class CargoDAO implements IDAO {
         if ($id > 0) {
             $sql .= " WHERE idCargo = " . $id;
         }
+        $sql .= " ORDER BY idCargo";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);

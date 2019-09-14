@@ -23,8 +23,14 @@ function verificarLog() {
     xmlhttp.send();
 }
 
-function alterarCargo() {
+function alterarCargo(qtd) {
     var xmlhttp = new XMLHttpRequest();
+    var dados = [];
+
+    for (var i = 0; i < qtd; i++) {
+        dados.push(document.getElementById("chk" + (i+1)).checked);
+    }
+
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -32,6 +38,6 @@ function alterarCargo() {
         }
     };
 
-    xmlhttp.open("GET", "../ajax/alteraCargo.php?q=", true);
+    xmlhttp.open("GET", "../ajax/alteraCargo.php?q=" + dados, true);
     xmlhttp.send();
 }

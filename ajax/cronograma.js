@@ -43,7 +43,7 @@ function alterar() {//alterar parâmetros do cronograma
         'chkSex',
         'chkSab'
     ];
-
+    
     var qtd = document.getElementById('txtQtd').value;//quantidade p/ dia
     if (isNaN(qtd) || qtd < 1 || qtd > 10) {//inválido
         //reajusta para 1

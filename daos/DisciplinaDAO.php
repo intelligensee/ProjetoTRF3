@@ -23,10 +23,29 @@ class DisciplinaDAO implements IDAO {
 
     public function pesquisar($objeto) {
         $id = $objeto->getId();
+        $cargos = $objeto->getCargos();
+
         $sql = "SELECT * FROM disciplina";
         if ($id > 0) {
             $sql .= " WHERE idDisciplina = " . $id;
+        } else if (!empty($cargos)) {
+            $sql .= " JOIN cargo_disciplina";
+            $sql .= " ON disciplina.idDisciplina = cargo_disciplina.idDisciplina";
+            $sql .= " JOIN cargo";
+            $sql .= " ON cargo_disciplina.idCargo = cargo.idCargo";
+
+            for ($i = 0; $i < count($cargos); $i++) {
+                $idC = $cargos[$i]->getId();
+                if ($i === 0) {
+                    $sql .= " WHERE";
+                } else {
+                    $sql .= " OR";
+                }
+                $sql .= " cargo.idCargo = " . $idC;
+            }
         }
+        $sql .= " GROUP BY disciplina.idDisciplina";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
