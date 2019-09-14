@@ -13,8 +13,10 @@
         <?php
         require_once '../controllers/Controller.php';
         require_once '../dominio/Disciplina.php';
+        require_once '../dominio/Cargo.php';
         $c = new Controller();
-        $d = $c->processar("PESQUISAR", new Disciplina());
+        $disciplinas = $c->processar("PESQUISAR", new Disciplina());
+        $cargos = $c->processar("PESQUISAR", new Cargo());
         ?>
     </head>
     <body onload="verificarLog()">
@@ -41,13 +43,19 @@
                 <button class="btn-estudo" onclick="window.location = 'estudar.php'">Estudar</button>
             </div>
             <div class="cargos">
-                <span id="spnCargos"></span>
+                <?php
+                $i = 1;
+                foreach ($cargos[1] as $cg) {
+                    echo '<input type="checkbox" checked id="chk' . $i++ . '">';
+                    echo '<label>' . $cg->getNome() . '</label>';
+                }
+                ?>
             </div>
             <div class="disciplinas">
                 <?php
-                foreach ($d[1] as $obj) {
-                    $id = $obj->getId();
-                    $nome = $obj->getNome();
+                foreach ($disciplinas[1] as $d) {
+                    $id = $d->getId();
+                    $nome = $d->getNome();
                     echo '<form method="post" action="disciplina.php?id=' . $id . '">';
                     echo '<input type="submit" value="' . $nome . '">';
                     echo '</form>';

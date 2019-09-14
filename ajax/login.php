@@ -9,9 +9,8 @@ $c = new Controller();
 $u = new Usuario();
 
 if (empty($q)) {//sair
-    $_SESSION['usuario'] = null;
-    $_SESSION['cronograma'] = null;
-    $logado = 'D';//deslogado
+    limparSessions();
+    $logado = 'D'; //deslogado
 } else {//entrar
     $log = explode('?', $q);
     $nome = $log[0];
@@ -22,15 +21,19 @@ if (empty($q)) {//sair
     if (!empty($r[1][0])) {//encontrou o usuário
         $u = serialize($r[1][0]);
         $_SESSION['usuario'] = $u;
-        $logado = 'L';//logado
+        $logado = 'L'; //logado
     } else {//não encontrou o usuário
-        $_SESSION['usuario'] = null;
-        $_SESSION['cronograma'] = null;
-        $_SESSION['tarefa'] = null;
-        $_SESSION['dias'] = null;
-        $_SESSION['QtdDia'] = null;
-        $logado = 'E';//erro de usuário e/ou senha
+        limparSessions();
+        $logado = 'E'; //erro de usuário e/ou senha
     }
+}
+
+function limparSessions() {
+    $_SESSION['usuario'] = null;
+    $_SESSION['cronograma'] = null;
+    $_SESSION['tarefa'] = null;
+    $_SESSION['dias'] = null;
+    $_SESSION['QtdDia'] = null;
 }
 
 echo $logado;

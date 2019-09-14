@@ -34,7 +34,7 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
     $resposta[0] = 'Olá visitante!';
     $salvo = false; //sem cronograma
     $dias = [true, true, true, true, true, true, true]; //dias da semana padrão
-    $qtd = 1;
+    $qtd = 1;//assuntos por dia padrão
     //Verificação de usuário logado
     if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//Se estiver logado
         $u = unserialize($_SESSION['usuario']); //recupera o usuário
