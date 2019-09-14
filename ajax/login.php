@@ -30,6 +30,7 @@ if (empty($q)) {//sair
 
 function limparSessions() {
     $_SESSION['usuario'] = null;
+    $_SESSION['cargos'] = null;
     $_SESSION['cronograma'] = null;
     $_SESSION['tarefa'] = null;
     $_SESSION['dias'] = null;

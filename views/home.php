@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Concurso TRF 3ª Região</title>
         <link rel="stylesheet" href="../css/index.css">
+        <script src="../ajax/home.js"></script>
         <script src="../ajax/login.js"></script>
         <script
             src = "https://code.jquery.com/jquery-3.4.0.js"
@@ -44,9 +45,10 @@
             </div>
             <div class="cargos">
                 <?php
+                //lista dos cargos cadastrados no sistema
                 $i = 1;
                 foreach ($cargos[1] as $cg) {
-                    echo '<input type="checkbox" checked id="chk' . $i++ . '">';
+                    echo '<input type="checkbox" checked id="chk' . $i++ . '" onchange="alterarCargo()">';
                     echo '<label>' . $cg->getNome() . '</label>';
                 }
                 ?>

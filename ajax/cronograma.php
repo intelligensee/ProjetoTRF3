@@ -34,7 +34,7 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
     $resposta[0] = 'Olá visitante!';
     $salvo = false; //sem cronograma
     $dias = [true, true, true, true, true, true, true]; //dias da semana padrão
-    $qtd = 1;//assuntos por dia padrão
+    $qtd = 1; //assuntos por dia padrão
     //Verificação de usuário logado
     if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//Se estiver logado
         $u = unserialize($_SESSION['usuario']); //recupera o usuário
@@ -65,7 +65,7 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
         $crono->setTarefas($tarefas);
         $_SESSION['cronograma'] = serialize($crono);
         $_SESSION['dias'] = $dias; //dias da semana
-        $_SESSION['QtdDia'] = $qtd;//assuntos por dia
+        $_SESSION['QtdDia'] = $qtd; //assuntos por dia
     }
 
     $ret = montar($tarefas, $salvo);
@@ -89,8 +89,8 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
     $retorno .= $resposta[3] . '?'; //data final
     $retorno .= $resposta[4] . '?'; //visibilidades
     $retorno .= $resposta[5] . '?'; //progresso
-    $retorno .= $qtd;//assuntos por dia
-    foreach ($dias as $d){//dias da semana escolhidos
+    $retorno .= $qtd; //assuntos por dia
+    foreach ($dias as $d) {//dias da semana escolhidos
         $retorno .= '?' . $d;
     }
 
@@ -104,12 +104,12 @@ function alterar($dados) {//Altera os parâmetros de montagem do cronograma
     $_SESSION['QtdDia'] = $qtd;
     for ($i = 2; $i < count($e); $i++) {//frequência (domingo à sábado)
         $dias[] = $e[$i];
-        if($e[$i] === 'true'){//Obs.: o que vem não é booleano, é texto
+        if ($e[$i] === 'true') {//Obs.: o que vem não é booleano, é texto
             $d[] = true;
-        }else{
+        } else {
             $d[] = false;
         }
-        $_SESSION['dias'] = $d;//dias da semana escolhidos
+        $_SESSION['dias'] = $d; //dias da semana escolhidos
     }
 
     //extração do cronograma da session
@@ -160,11 +160,11 @@ function salvarExcluir($op) {//Salva ou Exclui o cronograma
         if (!empty($r[1][0])) {//encontrou o usuário
             $u = serialize($r[1][0]);
             $_SESSION['usuario'] = $u;
+            echo true;
         } else {//não encontrou o usuário -> desloga
             $_SESSION['usuario'] = null;
-            $_SESSION['cronograma'] = null;
+            echo false;
         }
-        echo true;
     } else {//não logado -> js encaminha para a página de login
         echo false;
     }
