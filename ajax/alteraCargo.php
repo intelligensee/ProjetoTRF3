@@ -24,18 +24,20 @@ if ($conteudo) {
     $d->setCargos($cargos);
     $r = $c->processar("PESQUISAR", $d);
     $disciplinas = $r[1];//lista de disciplinas
-    foreach ($disciplinas[1] as $d) {
+    $resp = "";
+    foreach ($disciplinas as $d) {
         $id = $d->getId();
         $nome = $d->getNome();
-        echo '<form method="post" action="disciplina.php?id=' . $id . '">';
-        echo '<input type="submit" value="' . $nome . '">';
-        echo '</form>';
+        $resp .= '<form method="post" action="disciplina.php?id=' . $id . '">';
+        $resp .=  '<input type="submit" value="' . $nome . '">';
+        $resp .= '</form>';
     }
+    $resp .= '§' . count($disciplinas) . ' disciplinas';
 } else {
-    echo "Escolha pelo menos um cargo!";
+    $resp = "Escolha pelo menos um cargo!§";
 }
 
-
+echo $resp;
 
 
 

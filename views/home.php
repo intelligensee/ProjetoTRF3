@@ -20,7 +20,7 @@
         $cargos = $c->processar("PESQUISAR", new Cargo());
         ?>
     </head>
-    <body onload="verificarLog()">
+    <body onload="verificarLog(<?php echo count($cargos[1]) ?>)">
         <header class="cabecalho">
             <a href="home.php" class="logo"></a>
             <h1 class="titulo">Concurso TRF 3ª Região</h1>
@@ -55,15 +55,8 @@
                 ?>
             </div>
             <div class="disciplinas">
-                <?php
-                foreach ($disciplinas[1] as $d) {
-                    $id = $d->getId();
-                    $nome = $d->getNome();
-                    echo '<form method="post" action="disciplina.php?id=' . $id . '">';
-                    echo '<input type="submit" value="' . $nome . '">';
-                    echo '</form>';
-                }
-                ?>
+                <section id="homeQuantidade"></section>
+                <section id="homeDisciplinas"></section>
             </div>
         </main>
         <script>

@@ -1,6 +1,6 @@
-function verificarLog() {
+function verificarLog(qtd) {
     var xmlhttp = new XMLHttpRequest();
-
+    
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("?");
@@ -16,6 +16,7 @@ function verificarLog() {
                 document.getElementById("login").hidden = false;
                 document.getElementById("logado").hidden = true;
             }
+            alterarCargo(qtd);
         }
     };
 
@@ -26,15 +27,16 @@ function verificarLog() {
 function alterarCargo(qtd) {
     var xmlhttp = new XMLHttpRequest();
     var dados = [];
-
+    
     for (var i = 0; i < qtd; i++) {
-        dados.push(document.getElementById("chk" + (i+1)).checked);
+        dados.push(document.getElementById("chk" + (i + 1)).checked);
     }
-
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            alert('AJAX: ' + this.responseText);
+            var resp = this.responseText.split("§");
+            document.getElementById("homeDisciplinas").innerHTML = resp[0];
+            document.getElementById("homeQuantidade").innerHTML = resp[1];
         }
     };
 
