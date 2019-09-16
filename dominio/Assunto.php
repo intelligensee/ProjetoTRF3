@@ -5,12 +5,17 @@ require_once 'Dominio.php';
 class Assunto extends Dominio {
 
     private $idDisciplina = 0;
+    private $cargos = [];
     private $exercicios;
     private $videos;
     private $jogos;
 
     function getIdDisciplina(): int {
         return $this->idDisciplina;
+    }
+
+    function getCargos() : array {
+        return $this->cargos;
     }
 
     function getExercicios(): array {
@@ -27,6 +32,10 @@ class Assunto extends Dominio {
 
     function setIdDisciplina(int $idDisciplina) {
         $this->idDisciplina = $idDisciplina;
+    }
+
+    function setCargos(array $cargos) {
+        $this->cargos = $cargos;
     }
 
     function setExercicios(array $exercicios) {

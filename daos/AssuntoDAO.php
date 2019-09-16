@@ -21,15 +21,43 @@ class AssuntoDAO implements IDAO {
     }
 
     public function pesquisar($objeto) {
-        $id = $objeto->getId();
+        $idC = $objeto->getId();
         $idD = $objeto->getIdDisciplina();
-        $sql = "SELECT * FROM assunto";
-        if ($id > 0) {
-            $sql .= " WHERE idAssunto = " . $id;
-        } else if ($idD > 0) {
-            $sql .= " WHERE idDisciplina = " . $idD;
-            $sql .= " ORDER BY sequencia";
+        $cargos = $objeto->getCargos();
+        
+        $sql = "SELECT assunto.idAssunto, nomeAssunto, idDisciplina";
+        $sql .= " FROM assunto";
+
+        if (!empty($cargos)) {//assuntos específicos de certos cargos
+            $sql .= " JOIN cargo_assunto";
+            $sql .= " ON assunto.idAssunto = cargo_assunto.idAssunto";
+            $sql .= " JOIN cargo";
+            $sql .= " ON cargo_assunto.idCargo = cargo.idCargo";
+            for ($i = 0; $i < count($cargos); $i++) {
+                $id = $cargos[$i]->getId();
+                if ($i === 0) {
+                    $sql .= " WHERE (";
+                } else {
+                    $sql .= " OR";
+                }
+                $sql .= " cargo.idCargo = " . $id;
+            }
+            $sql .= ")";
+        } else if ($idC > 0) {//um assunto específico
+            $sql .= " WHERE idAssunto = " . $idC;
         }
+        if ($idD > 0) {//uma disciplina específica
+            if (!empty($cargos)) {
+                $sql .= " AND";
+            } else {
+                $sql .= " WHERE";
+            }
+            $sql .= " idDisciplina = " . $idD;
+        }
+
+        $sql .= " GROUP BY idAssunto";
+        $sql .= " ORDER BY sequencia";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
