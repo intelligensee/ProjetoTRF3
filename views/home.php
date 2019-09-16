@@ -49,7 +49,7 @@
                 $i = 1;
                 $qtd = count($cargos[1]);
                 foreach ($cargos[1] as $cg) {
-                    echo '<input type="checkbox" checked id="chk' . $i++ . '" onchange="alterarCargo(' . $qtd . ')">';
+                    echo '<input type="checkbox" id="chk' . $i++ . '" onchange="carregarCargo(' . $qtd . ', true)">';
                     echo '<label>' . $cg->getNome() . '</label>';
                 }
                 ?>

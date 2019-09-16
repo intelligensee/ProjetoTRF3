@@ -16,7 +16,7 @@ function verificarLog(qtd) {
                 document.getElementById("login").hidden = false;
                 document.getElementById("logado").hidden = true;
             }
-            alterarCargo(qtd);
+            carregarCargo(qtd, false);
         }
     };
 
@@ -24,14 +24,14 @@ function verificarLog(qtd) {
     xmlhttp.send();
 }
 
-function alterarCargo(qtd) {
+function carregarCargo(qtd, alteracao) {
     var xmlhttp = new XMLHttpRequest();
-    var dados = [];
+    var dados = [alteracao];
     
     for (var i = 0; i < qtd; i++) {
         dados.push(document.getElementById("chk" + (i + 1)).checked);
     }
-
+    
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("§");
@@ -40,6 +40,6 @@ function alterarCargo(qtd) {
         }
     };
 
-    xmlhttp.open("GET", "../ajax/alteraCargo.php?q=" + dados, true);
+    xmlhttp.open("GET", "../ajax/carregaCargo.php?q=" + dados, true);
     xmlhttp.send();
 }

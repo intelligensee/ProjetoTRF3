@@ -5,7 +5,7 @@ require_once '../controllers/Controller.php';
 require_once '../dominio/Usuario.php';
 require_once '../dominio/Disciplina.php';
 $q = $_REQUEST['q'];
-$e = explode(',', $q);//cargos escolhidos
+$e = explode(',', $q); //cargos escolhidos
 
 $c = new Controller();
 $u = new Usuario();
@@ -19,18 +19,20 @@ for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
     if ($i > 0) {
         $op .= '%';
     }
-    if ($e[$i] === 'true') {//Obs.: o conteúdo não é booleano, é texto
+    if ($e[$i + 1] === 'true') {//Obs.: o conteúdo não é booleano, é texto
         $cargos[] = $lista[$i]; //foi escolhido este cargo
-        $cg[$i] = true;//escolhido
+        $cg[$i] = true; //escolhido
         $conteudo = true;
         $op .= 't';
     } else {
-        $cg[$i] = false;//não escolhido
+        $cg[$i] = false; //não escolhido
         $op .= 'f';
     }
 }
-$_SESSION['cargos'] = $cg;
-$_SESSION['cronograma'] = null;
+if ($e[0] === 'true') {//se for proviniente de alteração. Obs.: não é booleano, é texto
+    $_SESSION['cargos'] = $cg;
+    $_SESSION['cronograma'] = null;
+}
 if ($conteudo) {
     $d->setCargos($cargos);
     $r = $c->processar("PESQUISAR", $d);

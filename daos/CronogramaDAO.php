@@ -50,6 +50,8 @@ class CronogramaDAO implements IDAO {
         $sql .= ' JOIN disciplina ON assunto.idDisciplina = disciplina.idDisciplina';
         $sql .= ' JOIN cronograma ON tarefa.idCronograma = cronograma.idCronograma';
         $sql .= ' WHERE cronograma.idCronograma = ? ORDER BY idTarefa';
+        
+        echo "id: " . $id;
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(1, $id);
         $stmt->execute();
