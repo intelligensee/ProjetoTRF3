@@ -1,6 +1,6 @@
 function verificarLog(qtd) {
     var xmlhttp = new XMLHttpRequest();
-    
+
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("?");
@@ -10,7 +10,8 @@ function verificarLog(qtd) {
                 var cgs = resp[1].split("§");
                 var i = 1;
                 cgs.forEach(function (valor) {
-                    document.getElementById("chk" + i++).checked = valor;
+                    document.getElementById("chk" + i).checked = valor;
+                    document.getElementById("chk" + i++).disabled = true;
                 });
             } else {//não logado
                 document.getElementById("login").hidden = false;
@@ -27,11 +28,11 @@ function verificarLog(qtd) {
 function carregarCargo(qtd, alteracao) {
     var xmlhttp = new XMLHttpRequest();
     var dados = [alteracao];
-    
+
     for (var i = 0; i < qtd; i++) {
         dados.push(document.getElementById("chk" + (i + 1)).checked);
     }
-    
+
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("§");

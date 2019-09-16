@@ -13,7 +13,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//logado
     $r = $c->processar("PESQUISAR", new Cargo()); //recupera a lista de cargos
     $lista = $r[1]; //lista de cargos cadastrados
     for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
-        $cargos[$i] = false; //não escolhido como padrão
+        $cargos[$i] = false; //não escolhido (padrão)
         foreach ($cg as $o) {//cada cargo do usuário
             if ($lista[$i]->getId() == $o->getId()) {//o usuário escolheu este cargo
                 $cargos[$i] = true;
@@ -22,7 +22,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//logado
         }
     }
     $_SESSION['cargos'] = $cargos;
-    $retorno = true;
+    $retorno = true;//logado
     $rt = '?';
     for ($i = 0; $i < count($cargos); $i++) {
         if($i > 0){
