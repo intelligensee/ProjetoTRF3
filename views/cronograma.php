@@ -23,7 +23,6 @@
                     <label>Assuntos por Dia: </label>
                     <input type="text" id="txtQtd" value="1" onchange="alterar()"></br>
 
-                    <label>Frequência</label></br>
                     
                     <input type="checkbox" checked id="chkDom" onchange="alterar()">
                     <label>Domingo</label>
@@ -44,8 +43,9 @@
                     <label>Sexta</label>
                     
                     <input type="checkbox" checked id="chkSab" onchange="alterar()">
-                    <label>Sábado</label>
+                    <label>Sábado</label></br>
                     
+                    <span id="spnCronoQtdAssuntos"></span>
                 </form>
             </section>
             <section class="cronograma conteiner meio">

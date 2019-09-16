@@ -93,6 +93,7 @@ function carregarCronograma() {//Carrega o cronograma salvo ou monta um novo
     foreach ($dias as $d) {//dias da semana escolhidos
         $retorno .= '?' . $d;
     }
+    $retorno .= '?' . count($tarefas) . ' Assuntos';//total de assuntos
 
     echo $retorno;
 }

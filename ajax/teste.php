@@ -6,24 +6,23 @@ session_start();
 //$q = $_REQUEST["q"];
 require_once '../controllers/Controller.php';
 $c = new Controller();
-
-require_once '../dominio/Usuario.php';
+//require_once '../dominio/Usuario.php';
 //require_once '../dominio/Cargo.php';
+require_once '../dominio/Assunto.php';
+$a = new Assunto();
 
-$u1 = new Usuario();
-$u1->setId(4);
+$ops = $_SESSION['cargos'];
+$r = $c->processar("PESQUISAR", new Cargo());
+$lista = $r[1];
 
-$r = $c->processar("PESQUISAR", $u1);
-$u = $r[1][0];
-
-echo "<pre>";
-print_r($u);
-
-$cg = $u->getCargos();
-print_r($cg);
-
-if(empty($cg)){
-    echo '</br>Vazio!';
+//Definir os cargos escolhidos pelo usuário
+for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
+    if ($ops[$i]) {//se escolheu este cargo
+        $cargos[] = $lista[$i]; //insere no array
+    }
 }
 
+$a->setCargos($cargos);
+$as = $c->processar("PESQUISAR", $a);
 
+echo count($as[1]);

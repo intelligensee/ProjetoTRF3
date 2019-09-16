@@ -21,7 +21,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//logado
             }
         }
     }
-    $_SESSION['cargos'] = cargos;
+    $_SESSION['cargos'] = $cargos;
     $retorno = true;
     $rt = '?';
     for ($i = 0; $i < count($cargos); $i++) {

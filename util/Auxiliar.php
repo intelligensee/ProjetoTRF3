@@ -6,30 +6,63 @@ require_once (__ROOT__ . '/dominio/Assunto.php');
 
 class Auxiliar {
 
-    function getTotalAssuntos(): int {
+    private $cargos;
+    private $conteudo = false;
+
+    private function definirCargos() {
+        //Obeter a lista de cargos
         $c = new Controller();
-        $ra = $c->processar("PESQUISAR", new Assunto());
-        return count($ra[1]);//retorna o total de assuntos (todas as disciplinas somadas)
+        $ops = $_SESSION['cargos'];
+        $r = $c->processar("PESQUISAR", new Cargo());
+        $lista = $r[1];
+
+        //Definir os cargos escolhidos pelo usuário
+        for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
+            if ($ops[$i]) {//se escolheu este cargo
+                $this->cargos[] = $lista[$i]; //insere no array
+                $this->conteudo = true; //houve alguma escolha
+            }
+        }
     }
 
-    function getDisciplinas(): array {
+    public function getTotalAssuntos(): int {
         $c = new Controller();
+        $a = new Assunto();
+        $this->definirCargos(); //define os cargos do usuário
+        if ($this->conteudo) {//se houve escolhas
+            $a->setCargos($this->cargos); //insere em assunto
+        }
+        $ra = $c->processar("PESQUISAR", $a);
+        //retorna o total de assuntos (todas as disciplinas dos cargos somadas)
+        return count($ra[1]);
+    }
+
+    public function getDisciplinas(): array {
+        $c = new Controller();
+        $di = new Disciplina();
+
+        if ($this->conteudo) {//se houve escolhas
+            $di->setCargos($this->cargos); //insere em disciplina
+        }
 
         //Obter todas as disciplinas
-        $rd = $c->processar("PESQUISAR", new Disciplina());
-        $d = $rd[1]; //todas as disciplinas
+        $rd = $c->processar("PESQUISAR", $di);
+        $d = $rd[1]; //todas as disciplinas dos cargos escolhidos
         //Obter todos os assuntos de cada disciplina
         foreach ($d as $dis) {
             $dd[0] = $dis;
             $da = new DisciplinaAux($this->getTotalAssuntos());
             $a = new Assunto();
+            if ($this->conteudo) {//se houve escolhas
+                $a->setCargos($this->cargos); //insere em assunto
+            }
             $a->setIdDisciplina($dis->getId());
             $ra = $c->processar("PESQUISAR", $a);
             $dd[1] = $ra[1]; //todos os assuntos da disciplina #
             $da->setAssuntos($dd); //inserir os assuntos no objeto
             $disciplinas[] = $da; //inserir o objeto na variável
         }
-        
+
         return $disciplinas; //retorna as lista de disciplinas (DisciplinaAux)
     }
 

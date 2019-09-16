@@ -22,6 +22,7 @@ function carregarCronograma() {//Carregar cronograma na abertura da página
             document.getElementById('chkQui').checked = resp[11];
             document.getElementById('chkSex').checked = resp[12];
             document.getElementById('chkSab').checked = resp[13];
+            document.getElementById('spnCronoQtdAssuntos').innerHTML = resp[14];
         }
     };
 
