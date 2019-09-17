@@ -42,6 +42,11 @@ class CronogramaDAO implements IDAO {
         $stmtC = $this->conn->prepare($sqlC);
         $stmtC->bindParam(1, $idCron);
         $stmtC->execute();
+        //Desvincular o usuário dos cargos escolhidos
+        $sqlCg = 'DELETE FROM usuario_cargo WHERE idUsuario = ?';
+        $stmtCg = $this->conn->prepare($sqlCg);
+        $stmtCg->bindParam(1, $idUser);
+        $stmtCg->execute();
     }
 
     public function pesquisar($objeto) {
