@@ -12,11 +12,13 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//logado
     $c = new Controller();
     $r = $c->processar("PESQUISAR", new Cargo()); //recupera a lista de cargos
     $lista = $r[1]; //lista de cargos cadastrados
+    $controle = false;//controle de escolhas
     for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
         $cargos[$i] = false; //não escolhido (padrão)
         foreach ($cg as $o) {//cada cargo do usuário
             if ($lista[$i]->getId() == $o->getId()) {//o usuário escolheu este cargo
                 $cargos[$i] = true;
+                $controle = true;//houve pelo menos uma escolha
                 continue; //sai do loop dos cargos do usuário
             }
         }
@@ -30,7 +32,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== null) {//logado
         }
         $rt .= $cargos[$i];
     }
-    echo $retorno . $rt;
+    echo $retorno . $rt . '?' . $controle;
 } else {//não logado
     echo false;
 }

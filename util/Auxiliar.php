@@ -10,7 +10,7 @@ class Auxiliar {
     private $conteudo = false;
 
     private function definirCargos() {
-        //Obeter a lista de cargos
+        //Obter a lista de cargos
         $c = new Controller();
         $ops = $_SESSION['cargos'];
         $r = $c->processar("PESQUISAR", new Cargo());

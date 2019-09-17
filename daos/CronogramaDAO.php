@@ -3,6 +3,7 @@
 require_once (__ROOT__ . '/interfaces/IDAO.php');
 require_once (__ROOT__ . '/util/ConnectionFactory.php');
 require_once (__ROOT__ . '/dominio/Usuario.php');
+require_once (__ROOT__ . '/dominio/Cargo.php');
 require_once (__ROOT__ . '/dominio/Cronograma.php');
 require_once (__ROOT__ . '/dominio/Tarefa.php');
 require_once (__ROOT__ . '/dominio/Assunto.php');
@@ -50,8 +51,7 @@ class CronogramaDAO implements IDAO {
         $sql .= ' JOIN disciplina ON assunto.idDisciplina = disciplina.idDisciplina';
         $sql .= ' JOIN cronograma ON tarefa.idCronograma = cronograma.idCronograma';
         $sql .= ' WHERE cronograma.idCronograma = ? ORDER BY idTarefa';
-        
-        echo "id: " . $id;
+
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(1, $id);
         $stmt->execute();
@@ -78,6 +78,7 @@ class CronogramaDAO implements IDAO {
         date_default_timezone_set('America/Sao_Paulo');
         $tarefas = $objeto->getTarefas();
         $idUsuario = $this->usuario->getId();
+        $cargos = unserialize('cargos');
         $data = new DateTime();
         $mes = $data->format('M');
         $dt = $data->format('dmYHisu');
@@ -88,7 +89,7 @@ class CronogramaDAO implements IDAO {
         $stmtC1 = $this->conn->prepare($sqlC1);
         $stmtC1->bindParam(1, $nome);
         $stmtC1->execute();
-        
+
         //Recupera o id do novo cronograma salvo
         $sqlC2 = "SELECT idCronograma from cronograma WHERE nomeCronograma = ?";
         $stmtC2 = $this->conn->prepare($sqlC2);
@@ -98,14 +99,14 @@ class CronogramaDAO implements IDAO {
         foreach ($rs as $obj) {
             $idCronograma = $obj["idCronograma"];
         }
-        
+
         //Vincula o cronograma ao usuário
         $sqlU = "UPDATE usuario SET idCronograma = ? WHERE idUsuario = ?";
         $stmtU = $this->conn->prepare($sqlU);
         $stmtU->bindParam(1, $idCronograma);
         $stmtU->bindParam(2, $idUsuario);
         $stmtU->execute();
-        
+
         //Salva as tarefas do cronograma
         $sqlT = "INSERT INTO tarefa VALUES (0, ?, ?, ?, ?)";
         $stmtT = $this->conn->prepare($sqlT);
@@ -120,6 +121,31 @@ class CronogramaDAO implements IDAO {
             $stmtT->bindParam(4, $idCronograma);
             $stmtT->execute();
         }
+
+        //Obtem a lista de cargos
+        $c = new Controller();
+        $ops = $_SESSION['cargos'];
+        $r = $c->processar("PESQUISAR", new Cargo());
+        $lista = $r[1];
+
+        //Define os cargos escolhidos pelo usuário
+        for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
+            if ($ops[$i]) {//se escolheu este cargo
+                $cargos[] = $lista[$i]; //insere no array
+            }
+        }
+
+        //Vicula o usuário aos cargos escolhidos
+        $sqlCg = "INSERT INTO usuario_cargo VALUES (?, ?)";
+        $stmtCg = $this->conn->prepare($sqlCg);
+        foreach ($cargos as $cg) {
+            $idC = $cg->getId();
+
+            $stmtCg->bindParam(1, $idUsuario);
+            $stmtCg->bindParam(2, $idC);
+            $stmtCg->execute();
+        }
+
         return true;
     }
 

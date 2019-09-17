@@ -7,11 +7,13 @@ function verificarLog(qtd) {
             if (resp[0]) {//logado
                 document.getElementById("login").hidden = true;
                 document.getElementById("logado").hidden = false;
-                var cgs = resp[1].split("§");
+                var cgs = resp[1].split("§");//cargos escolhidos
                 var i = 1;
                 cgs.forEach(function (valor) {
                     document.getElementById("chk" + i).checked = valor;
-                    document.getElementById("chk" + i++).disabled = true;
+                    if (resp[2]) {//há cargos escolhidos -> desabilita
+                        document.getElementById("chk" + i++).disabled = true;
+                    }
                 });
             } else {//não logado
                 document.getElementById("login").hidden = false;
