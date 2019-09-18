@@ -9,6 +9,10 @@ class Auxiliar {
     private $cargos;
     private $conteudo = false;
 
+    function __construct() {
+        
+    }
+
     private function definirCargos() {
         //Obter a lista de cargos
         $c = new Controller();
@@ -28,7 +32,6 @@ class Auxiliar {
     public function getTotalAssuntos(): int {
         $c = new Controller();
         $a = new Assunto();
-        $this->definirCargos(); //define os cargos do usuário
         if ($this->conteudo) {//se houve escolhas
             $a->setCargos($this->cargos); //insere em assunto
         }
@@ -40,6 +43,8 @@ class Auxiliar {
     public function getDisciplinas(): array {
         $c = new Controller();
         $di = new Disciplina();
+
+        $this->definirCargos(); //define os cargos escolhidos pelo usuário
 
         if ($this->conteudo) {//se houve escolhas
             $di->setCargos($this->cargos); //insere em disciplina

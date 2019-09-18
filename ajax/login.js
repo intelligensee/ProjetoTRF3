@@ -9,7 +9,7 @@ function logar(log) {
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText === "E") {//erro de login
+            if (this.responseText === 'E') {//erro de login
                 document.getElementById("logMsg").innerHTML = "Usuário e/ou senha inválidos!";
             } else {//saiu ou entrou
                 window.location = "../views/home.php";

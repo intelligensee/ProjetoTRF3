@@ -12,7 +12,7 @@ class MontaCronograma implements IStrategy {
     public function verificar($objeto) {//objeto = util/Auxiliar.php
         $this->disciplinas = $objeto->getDisciplinas();
         $this->totalAssuntos = $objeto->getTotalAssuntos();
-
+        
         $this->ordenar();
         $this->preparar();
         return $this->montar();

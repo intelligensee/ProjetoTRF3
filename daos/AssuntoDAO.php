@@ -57,6 +57,8 @@ class AssuntoDAO implements IDAO {
 
         $sql .= " GROUP BY idAssunto";
         $sql .= " ORDER BY sequencia";
+        
+//        echo $sql;
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();

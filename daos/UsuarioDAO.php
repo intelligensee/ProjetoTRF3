@@ -22,6 +22,7 @@ class UsuarioDAO implements IDAO {
     }
 
     public function pesquisar($objeto) {
+        $list = [];
         $id = $objeto->getId();
         $nome = $objeto->getNome();
         $senha = $objeto->getSenha();
