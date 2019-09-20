@@ -77,7 +77,7 @@ class CronogramaDAO implements IDAO {
         $list[0] = $objeto;
         return $list;
     }
-
+    
     public function salvar($objeto) {
         setlocale(LC_ALL, 'pt_BR');
         date_default_timezone_set('America/Sao_Paulo');
