@@ -42,7 +42,7 @@ if ($conteudo) {
         $id = $d->getId();
         $nome = $d->getNome();
         $resp .= '<form method="post" action="disciplina.php?id=' . $id . '&ops=' . $op . '">';
-        $resp .= '<input type="submit" value="' . $nome . '">';
+        $resp .= '<input class="button" type="Submit" value="' . $nome . '">';
         $resp .= '</form>';
     }
     $resp .= '§' . count($disciplinas) . ' disciplinas';

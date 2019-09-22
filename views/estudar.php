@@ -1,8 +1,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/disciplinas.css">
         <script src="../ajax/tarefa.js"></script>
+        <?php
+            require_once '../views/menu.php';
+        ?>
     </head>
     <body onload="carregarTarefa()">
         <header>
@@ -20,5 +22,6 @@
                 </button>
             </section>
         </main>
+        <?php include "rodape.php"; ?>
     </body>
 </html>

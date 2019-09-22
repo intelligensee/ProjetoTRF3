@@ -9,5 +9,6 @@
         <meta name="author" content="InteligenSee">
     </head>
     <body onload="window.location = 'views/home.php'">
+        
     </body>
 </html>
