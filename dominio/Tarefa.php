@@ -13,7 +13,7 @@ class Tarefa extends Dominio {
         return $this->data;
     }
 
-    function getNomeDisciplina() : string {
+    function getNomeDisciplina(): string {
         return $this->nomeDisciplina;
     }
 
@@ -21,8 +21,12 @@ class Tarefa extends Dominio {
         return $this->assunto;
     }
 
-    function getStatus(): bool {
-        return $this->status;
+    function getStatus(): int {
+        if ($this->status) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     function setData($data) {

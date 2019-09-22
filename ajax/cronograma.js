@@ -7,7 +7,7 @@ function carregarCronograma() {//Carregar cronograma na abertura da página
             document.getElementById('BoasVindas').innerHTML = resp[0];
             document.getElementById('dataIni').value = resp[1];
             document.getElementById('tabela').innerHTML = resp[2];
-            document.getElementById('dataFim').innerHTML = resp[3];
+            document.getElementById('dataFim').value = resp[3];
             document.getElementById('param').hidden = resp[4];
             document.getElementById('secCronoProg').hidden = !resp[4];
             document.getElementById('btCronoSalvar').hidden = resp[4];
@@ -44,7 +44,7 @@ function alterar() {//alterar parâmetros do cronograma
         'chkSex',
         'chkSab'
     ];
-    
+
     var qtd = document.getElementById('txtQtd').value;//quantidade p/ dia
     if (isNaN(qtd) || qtd < 1 || qtd > 10) {//inválido
         //reajusta para 1
@@ -89,8 +89,11 @@ function executar(operacao) {//Salvar ou Excluir
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText) {
+            //alert("AJAX: " + this.responseText);
+            if (this.responseText === true) {
                 window.location = "../views/cronograma.php";
+            } else if (this.responseText === 'E') {
+                window.location = "../views/erro.php";
             } else {
                 window.location = "../views/login.php";
             }

@@ -24,13 +24,13 @@ class Fachada implements IFachada {
         //Lista de regras do comando SALVAR da classe Usuario
         $usuarioSalvar[] = new VerificaNome();
         $usuarioSalvar[] = new VerificaSenha();
-        
+
         //Lista de regras do comando PESQUISAR da classe Auxiliar
         $auxiliarPesquisar[] = new MontaCronograma();
 
         //Mapa de comandos da classe Usuario
         $mapaUsuario["SALVAR"] = $usuarioSalvar;
-        
+
         //Mapa de comandos da classe Auxiliar
         $mapaAuxiliar["PESQUISAR"] = $auxiliarPesquisar;
 
@@ -64,9 +64,13 @@ class Fachada implements IFachada {
     }
 
     public function salvar($objeto) {
-        $retorno[] = $this->executarRegras("SALVAR", $objeto);
-        if (empty($retorno[0])) {
-            $retorno[] = $this->instanciarDAO($objeto)->salvar($objeto);
+        $retorno[0] = $this->executarRegras("SALVAR", $objeto);
+        if (empty($retorno[0])) {//sem erros nas regras de negócio
+            $retorno[1] = $this->instanciarDAO($objeto)->salvar($objeto);
+            if ($retorno[1][0] === '%ERRO%') {//erro de DAO
+                $retorno[0] = $retorno[1];//[0] = espaço para erros
+                $retorno[1] = null;//elimina o espaço do DAO
+            }
         }
         return $retorno;
     }

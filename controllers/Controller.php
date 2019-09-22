@@ -19,6 +19,7 @@ class Controller {
         //Execução do comando
         $c = $mapa[$comando];
         $r = $c->executar($objeto);
+
         return $r;
     }
 

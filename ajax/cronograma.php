@@ -145,7 +145,16 @@ function salvarExcluir($op) {//Salva ou Exclui o cronograma
         if ($op === 'SALVAR') {//Salva o cronograma definido
             $crono = unserialize($_SESSION['cronograma']);
             $c = new Controller();
-            $c->processar("SALVAR", $crono);
+            $r = $c->processar("SALVAR", $crono);
+            if(!empty($r[0])){//houve erro
+                $ocorrencia = $r[0];
+                $msg = $ocorrencia[1] . '</br>';//local
+                $msg .= $ocorrencia[2] . '</br>';//operação
+                $msg .= $ocorrencia[3] . '</br>';//erro
+                $_SESSION['erro'] = $msg;
+                echo 'E';
+                return;
+            }
         } else if ($op === 'EXCLUIR') {//Exclui o cronograma do usuário
             require_once '../dominio/Usuario.php';
             $c = new Controller();

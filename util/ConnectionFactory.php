@@ -4,9 +4,16 @@ abstract class ConnectionFactory {
 
     private static $dsn_Options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
 
-    public static function getMySQLConnection(): PDO {
-        //return self::TRF3Local();
-        return self::TRF3Azure();
+    public static function getMySQLConnection() {
+        $pdo = self::TRF3Local();
+        //$pdo = self::TRF3AzureMySQLI();
+        //$pdo = self::TRF3AzurePDO();
+
+        if ($pdo === null) {
+            echo "Não foi possível conectar com o banco!";
+        } else {
+            return $pdo;
+        }
     }
 
     private static function TRF3Local(): PDO {
@@ -17,14 +24,32 @@ abstract class ConnectionFactory {
         return $conn;
     }
 
-    private static function TRF3Azure(): PDO {
+    private static function TRF3AzurePDO() {
         $sql = 'mysql:host=trf3crono.mariadb.database.azure.com;port=3306;dbname=trf3';
         $user = "itlsadm@trf3crono";
         $password = "Int3llig3nS33";
-        $options = array(PDO::MYSQL_ATTR_SSL_CA => 'C:/BaltimoreCyberTrustRoot.crt.pem');
-        return new PDO($sql, $user, $password, $options);
+        $options = array(PDO::MYSQL_ATTR_SSL_CA => '../BaltimoreCyberTrustRoot.crt.pem', PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+        try {
+            $conn = new PDO($sql, $user, $password, $options);
+            return $conn;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
-    //senha do site WH: trf3itls
-    //azure senha: 40289653819
+    private static function TRF3AzureMySQLI() {
+        $con = mysqli_init();
+        $user = "itlsadm@trf3crono";
+        $password = "Int3llig3nS33";
+        mysqli_ssl_set($con, NULL, NULL, '/BaltimoreCyberTrustRoot.crt.pem', NULL, NULL);
+        mysqli_real_connect($con, "trf3crono.mariadb.database.azure.com", $user, $password, 'trf3', 3306);
+        if (mysqli_connect_errno($con)) {
+            die('Failed to connect to MySQL: ' . mysqli_connect_error());
+        } else {
+            return $con;
+        }
+    }
+
+//senha do site WH: trf3itls
+//azure senha: 40289653819
 }
