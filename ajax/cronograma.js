@@ -7,7 +7,7 @@ function carregarCronograma() {//Carregar cronograma na abertura da página
             document.getElementById('BoasVindas').innerHTML = resp[0];
             document.getElementById('dataIni').value = resp[1];
             document.getElementById('tabela').innerHTML = resp[2];
-            document.getElementById('dataFim').innerHTML = resp[3];
+            document.getElementById('dataFim').value = resp[3];
             document.getElementById('param').hidden = resp[4];
             document.getElementById('secCronoProg').hidden = !resp[4];
             document.getElementById('btCronoSalvar').hidden = resp[4];

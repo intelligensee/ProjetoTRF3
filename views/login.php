@@ -1,9 +1,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/disciplinas.css">
-        <link rel="stylesheet" href="../css/login.css">
         <script src="../ajax/login.js"></script>
+        <?php
+            require_once '../views/menu.php';
+        ?>
     </head>
     <body>
         <header>
@@ -34,6 +35,7 @@
         </main>
         <footer class="conteiner meio borda-inf">
             <h2 id="logMsg"></h2>
+            <?php include "rodape.php"; ?>
         </footer>
     </body>
 </html>

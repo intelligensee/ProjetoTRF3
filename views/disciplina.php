@@ -1,10 +1,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/disciplinas.css">
         <?php
         $id = $_GET['id'];
         $ops = $_GET['ops'];
+        require_once '../views/menu.php';
         require_once '../controllers/Controller.php';
         require_once '../dominio/Disciplina.php';
         require_once '../dominio/Assunto.php';
@@ -45,5 +45,6 @@
                 ?>
             </ul>
         </nav>
+        <?php include "rodape.php"; ?>
     </body>
 </html>
