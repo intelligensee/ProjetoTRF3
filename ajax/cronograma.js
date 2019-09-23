@@ -64,7 +64,7 @@ function alterar() {//alterar parâmetros do cronograma
     });
 
     if (controle === 0) {//não escolheu nenhum
-        document.getElementById('dataFim').innerHTML = '';
+        document.getElementById('dataFim').value = '';
         document.getElementById('tabela').innerHTML = 'Escolha pelo menos um dia da semana!';
         document.getElementById('btCronoSalvar').hidden = true;
         return;
@@ -76,7 +76,7 @@ function alterar() {//alterar parâmetros do cronograma
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("?");
             document.getElementById('tabela').innerHTML = resp[0];
-            document.getElementById('dataFim').innerHTML = resp[1];
+            document.getElementById('dataFim').value = resp[1];
         }
     };
 

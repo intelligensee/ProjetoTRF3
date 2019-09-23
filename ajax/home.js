@@ -5,8 +5,8 @@ function verificarLog(qtd) {
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("?");
             if (resp[0]) {//logado
-                document.getElementById("login").hidden = true;
-                document.getElementById("logado").hidden = false;
+                //document.getElementById("login").hidden = true;
+                //document.getElementById("logado").hidden = false;
                 var cgs = resp[1].split("§");//cargos escolhidos
                 var i = 1;
                 cgs.forEach(function (valor) {
@@ -16,8 +16,8 @@ function verificarLog(qtd) {
                     }
                 });
             } else {//não logado
-                document.getElementById("login").hidden = false;
-                document.getElementById("logado").hidden = true;
+                //document.getElementById("login").hidden = false;
+                //document.getElementById("logado").hidden = true;
             }
             carregarCargo(qtd, false);
         }
