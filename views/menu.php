@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="../css/menu.css"/>
 <link rel="stylesheet" href="../css/cronograma.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="Javascript" type="Ja" href="../ajax/menu.js">
 <script src="../ajax/menu.js"></script>
 </head>
 <body>

@@ -87,6 +87,6 @@
             <button class="btCrono btCronoExcluir" id="btCronoExcluir" hidden onclick="executar('EXCLUIR')">Excluir</button>            
         </footer>
         </div>
-        <?php include "rodape.php"; ?>
+        <?php //include "rodape.php"; ?>
     </body>
 </html>
