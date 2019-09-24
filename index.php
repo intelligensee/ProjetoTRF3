@@ -6,7 +6,7 @@
         <meta name="description" content="Portal de estudos para o Concurso do TRF3.">
         <meta name="keywords" content="TRF3, estudo, concurso público, cronograma">
         <meta name="robots" content="index, follow">
-        <meta name="author" content="InteligenSee">
+        <meta name="author" content="IntelligenSee">
     </head>
     <body onload="window.location = 'views/home.php'">
         

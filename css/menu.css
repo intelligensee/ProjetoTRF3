@@ -1,82 +1,118 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  padding-top: 3%;
-  margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 3%;
+    margin: 0;
 }
 
 .topnav {
-  overflow: hidden;
-  background-color: #333;
-  position:fixed;
-  width: 100%;
-  top:0;
-  padding: 0;
-  box-shadow: 0px 2px 5px #888888;
+    overflow: hidden;
+    background-color: #333;
+    position:fixed;
+    width: 100%;
+    top:0;
+    padding: 0;
+    box-shadow: 0px 2px 5px #888888;
 }
 
 .topnav #myLinks {
-  display: none;
+    display: none;
 }
 
 .topnav a {
-  color: white;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
 }
 
 .topnav a.icon {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .active {
-  background-color: #5E66F2;
-  color: white;
+    background-color: #5E66F2;
+    color: white;
 }
 
 
 .principal{
-    padding: 10px;
-    margin: 10px 20px 10px 10px;
+    padding: 2%;
+    margin: 0 2% 2% 2%;
     color: #424242;
     text-indent: 20px;
     text-align: justify;
     letter-spacing: 1px;
 }
 
+.tdCargos{
+    padding: 0;
+}
+
+.tdCargos input{
+    width: 30px;
+    height: 15px;
+}
+
+.tdCargos label{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#homeQuantidade{
+    color: darkgreen;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
 .button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  width: 250px;
-  height: 60px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  float: left;
-  word-wrap:normal;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: 10pt;
-  box-shadow: 0px 2px 5px #888888;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    width: 98%;
+    height: 60px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    float: left;
+    word-wrap:normal;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 1.2em;
+    box-shadow: 0px 2px 5px #888888;
 }
 
 .button:hover{
     background-color:#888DF2;
 }
 
+.topButton{
+    width: 45%;
+    margin: 2%;
+    height: 40px;
+    font-weight: bold;
+    background-color: darkcyan;
+}
+
 #rodape{
-    padding: 14px 16px;
+    padding: 3% 2%;
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 96%;
     background-color: #EEEEEE;
     text-align: center;
+}
+
+.subMenu{
+    height: 38px;
+}
+
+.subRodape{
+    height: 64px;
 }
 
 p{

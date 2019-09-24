@@ -39,7 +39,12 @@ function carregarCargo(qtd, alteracao) {
         if (this.readyState === 4 && this.status === 200) {
             var resp = this.responseText.split("§");
             document.getElementById("homeDisciplinas").innerHTML = resp[0];
-            document.getElementById("homeQuantidade").innerHTML = resp[1];
+            if (resp[1] === 'f') {
+                document.getElementById("btCronograma").disabled = true;
+            } else {
+                document.getElementById("btCronograma").disabled = false;
+                document.getElementById("homeQuantidade").innerHTML = resp[1];
+            }
         }
     };
 

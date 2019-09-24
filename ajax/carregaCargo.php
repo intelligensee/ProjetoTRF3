@@ -22,7 +22,7 @@ for ($i = 0; $i < count($lista); $i++) {//cada cargo cadastrado
     if ($e[$i + 1] === 'true') {//Obs.: o conteúdo não é booleano, é texto
         $cargos[] = $lista[$i]; //foi escolhido este cargo
         $cg[$i] = true; //escolhido
-        $conteudo = true;
+        $conteudo = true;//escolheu pelo menos um cargo
         $op .= 't';
     } else {
         $cg[$i] = false; //não escolhido
@@ -33,12 +33,12 @@ if ($e[0] === 'true') {//se for proviniente de alteração. Obs.: não é boolea
     $_SESSION['cargos'] = $cg;
     $_SESSION['cronograma'] = null;
 }
-if ($conteudo) {
+if ($conteudo) {//se escolheu pelo menos um cargo
     $d->setCargos($cargos);
     $r = $c->processar("PESQUISAR", $d);
     $disciplinas = $r[1]; //lista de disciplinas
     $resp = "";
-    foreach ($disciplinas as $d) {
+    foreach ($disciplinas as $d) {//disciplinas dos cargos escolhidos
         $id = $d->getId();
         $nome = $d->getNome();
         $resp .= '<form method="post" action="disciplina.php?id=' . $id . '&ops=' . $op . '">';
@@ -46,8 +46,8 @@ if ($conteudo) {
         $resp .= '</form>';
     }
     $resp .= '§' . count($disciplinas) . ' disciplinas';
-} else {
-    $resp = "Escolha pelo menos um cargo!§";
+} else {//não escolheu nenhum cargo
+    $resp = "Escolha pelo menos um cargo!§f";
 }
 
 echo $resp;
